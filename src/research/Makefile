@@ -3,12 +3,15 @@ LINK_APT = -lapt-pkg
 DEBUG = -g
 
 
-all: listpacks
+all: listpacks listupgrades
 
 clean:
 	rm -rf listpacks
+	rm -rf listupgrades
 
 listpacks: listpacks.c
 	g++ -Wall -o $@ $< $(LINK_APT)
 
+listupgrades: listupgrades.c
+	g++ -Wall -o $@ $< $(LINK_APT)
 
