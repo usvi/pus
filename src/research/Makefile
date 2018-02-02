@@ -9,9 +9,9 @@ clean:
 	rm -rf listpacks
 	rm -rf listupgrades
 
-listpacks: listpacks.c
+listpacks: listpacks.cc
 	g++ -Wall -o $@ $< $(LINK_APT)
 
-listupgrades: listupgrades.c
+listupgrades: listupgrades.cc
 	g++ -Wall -o $@ $< $(LINK_APT)
 
