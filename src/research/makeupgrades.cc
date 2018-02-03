@@ -14,8 +14,7 @@ int main()
   pkgCacheFile cache_file;
   pkgDepCache* dep_cache = cache_file.GetDepCache();
 
-  APT::Upgrade::Upgrade(*dep_cache,
-  			APT::Upgrade::FORBID_REMOVE_PACKAGES|APT::Upgrade::FORBID_INSTALL_NEW_PACKAGES);
+  APT::Upgrade::Upgrade(*dep_cache, 0);
 
   return 0;
 }
