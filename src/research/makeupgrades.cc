@@ -3,30 +3,19 @@
 
 
 #include <apt-pkg/cachefile.h>
-
+#include <apt-pkg/upgrade.h>
 
 int main()
 {
-  pkgCache* pkg_cache = NULL;
-  pkgDepCache* dep_cache = NULL;
-  pkgDepCache::StateCache* package_state = NULL;
-  pkgCacheFile cache_file;
 
   pkgInitConfig(*_config);
   pkgInitSystem(*_config, _system);
 
-  pkg_cache = cache_file.GetPkgCache();
-  dep_cache = cache_file.GetDepCache();
+  pkgCacheFile cache_file;
+  pkgDepCache* dep_cache = cache_file.GetDepCache();
 
-  for (pkgCache::PkgIterator package = pkg_cache->PkgBegin(); !package.end(); package++)
-  {
-    package_state = &((*dep_cache)[package]);
-
-    if(package.CurrentVer() && package_state->Upgradable())
-    {
-      std::cout << package.Name() << std::endl;
-    }
-  }
+  APT::Upgrade::Upgrade(*dep_cache,
+  			APT::Upgrade::FORBID_REMOVE_PACKAGES|APT::Upgrade::FORBID_INSTALL_NEW_PACKAGES);
 
   return 0;
 }
